@@ -1,0 +1,6 @@
+{
+  "name": "ARTEEVA - Consultants & Contractors",
+  "description": "Premium corporate construction and engineering website for ARTEEVA, featuring commercial, residential, and infrastructure solutions with SEO and Google Apps Script integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
