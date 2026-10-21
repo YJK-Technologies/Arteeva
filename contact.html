@@ -45,7 +45,7 @@
     "name": "ARTEEVA",
     "url": "https://www.arteeva-construction.com/contact.html",
     "telephone": "+91-98765-43210",
-    "email": "arteeva.co@gmail.com",
+    "email": "info@arteeva.in",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Plot 42, Prime Industrial & Commercial Zone",
@@ -70,12 +70,13 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-7">
-          <span class="me-3"><i class="bi bi-geo-alt-fill text-warning me-1"></i>Kanyakumari District, Tamil Nadu, India</span>
+          <span class="me-3"><i class="bi bi-geo-alt-fill text-warning me-1"></i>Kanyakumari, Tamil Nadu, India</span>
           <!-- <span><i class="bi bi-clock-fill text-warning me-1"></i> Mon - Sat: 8:30 AM - 6:30 PM</span> -->
         </div>
         <div class="col-md-5 text-end">
           <a href="tel:+919876543210" class="me-3"><i class="bi bi-telephone-fill text-warning me-1"></i> +91 7305443860</a>
-          <a href="mailto:arteeva.co@gmail.com"><i class="bi bi-envelope-fill text-warning me-1"></i> arteeva.co@gmail.com</a>
+          <a href="tel:+96590993150" class="me-3"><i class="bi bi-telephone-fill text-warning me-1"></i> +965 90993150</a>
+          <a href="mailto:info@arteeva.in"><i class="bi bi-envelope-fill text-warning me-1"></i> info@arteeva.in</a>
         </div>
       </div>
     </div>
@@ -214,7 +215,7 @@
             </div>
             <h3 class="h6 fw-bold text-navy-deep mb-2">Email Channels</h3>
             <p class="small text-muted mb-0">
-              General: <a href="mailto:arteeva.co@gmail.com" class="fw-bold email-gold">arteeva.co@gmail.com</a><br>
+              General: <a href="mailto:info@arteeva.in" class="fw-bold email-gold">info@arteeva.in</a><br>
               Tenders: tender@arteeva-construction.com
             </p>
           </div>
@@ -339,17 +340,23 @@
                   <label for="phoneNumber" class="form-label">
                     Phone Number <span class="required-star">*</span>
                   </label>
-                  <input 
-                    type="tel" 
-                    class="form-control" 
-                    id="phoneNumber" 
-                    name="phone" 
-                    placeholder="+91 7305443860"
+
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phoneNumber"
+                    name="phone"
+                    placeholder="7305443860"
                     required
                     autocomplete="tel"
+                    inputmode="numeric"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                    pattern="[0-9]{8,15}"
+                    maxlength="15"
                   >
+
                   <div class="invalid-feedback" id="phoneFeedback">
-                    Please enter a valid contact phone number (min 8 digits).
+                    Please enter a valid contact phone number (8–15 digits).
                   </div>
                 </div>
 
@@ -503,11 +510,11 @@
             ARTEEVA is an established corporate construction and civil contracting firm delivering commercial landmarks, industrial infrastructure, and modern luxury residential developments.
           </p>
           <div class="social-links">
-            <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/arteeva-consultants-478835445" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="https://x.com/ArteevaCons" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61595630071470" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/arteeva.co?srtk=NGtkeG1yZ3BwcjVj" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <!-- <a href="#" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a> -->
           </div>
         </div>
 
@@ -559,7 +566,7 @@
           <div class="footer-contact-item">
             <i class="bi bi-envelope-fill"></i>
             <div>
-              <a href="mailto:arteeva.co@gmail.com">arteeva.co@gmail.com</a>
+              <a href="mailto:info@arteeva.in">info@arteeva.in</a>
             </div>
           </div>
           <!-- <div class="footer-contact-item">
