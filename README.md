@@ -93,7 +93,7 @@ const CONFIG = {
 ### 2. In HTML Files (`index.html`, `about.html`, etc.):
 Search and replace the demonstration placeholders:
 * **Company Phone:** `+91 7305443860`
-* **Company Email:** `arteeva.co@gmail.com`
+* **Company Email:** `info@arteeva.in`
 * **Company Address:** `ARTEEVA Towers, Plot 42, Prime Industrial & Commercial Zone, Kanyakumari District, Tamil Nadu, India`
 * **Operating Hours:** `Mon - Sat: 8:30 AM - 6:30 PM`
 

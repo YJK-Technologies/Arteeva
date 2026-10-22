@@ -1,4 +1,4 @@
-const COMPANY_EMAIL = "yjktechnologiesdev@gmail.com";
+const COMPANY_EMAIL = "notification.arteeva.co@gmail.com";
 const COMPANY_NAME = "ARTEEVA Consultants & Contractors";
 
 
