@@ -58,10 +58,11 @@ body {
   background-color: var(--white);
   line-height: 1.68;
   font-size: 1rem;
-  overflow-x: hidden;
+  overflow-x: clip; /* Changed from hidden to prevent mobile sticky bugs */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--navy-deep);
@@ -1581,9 +1582,39 @@ img {
   color: var(--gold-light) !important;
 }
 
-/* Move navbar links slightly upward */
-.navbar-custom .navbar-nav {
-  transform: translateY(-12px);
+/* Move navbar links slightly upward ONLY on desktop views */
+@media (min-width: 992px) {
+  .navbar-custom .navbar-nav {
+    transform: translateY(-12px);
+  }
+}
+
+/* Prevent overlapping and ensure clean spacing on mobile & tablet views */
+@media (max-width: 991.98px) {
+  .top-bar {
+    position: relative;
+    z-index: 1030;
+  }
+
+  .navbar-custom {
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+    background-color: var(--white);
+  }
+
+  .navbar-custom .navbar-nav {
+    transform: none !important;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .navbar-custom .navbar-collapse {
+    background-color: var(--white);
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+  }
 }
 
 /* =========================================
@@ -1649,5 +1680,30 @@ img {
 @media (max-width: 991.98px) {
   .international-info-card {
     margin-top: 0.5rem;
+  }
+}
+
+/* =========================================
+   HIDE SCROLLBAR IN MOBILE VIEW
+========================================= */
+@media (max-width: 991.98px) {
+  /* Prevent any horizontal overflow across mobile screens */
+  html, body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  /* Hide vertical & horizontal scrollbar for Firefox and Edge/IE on mobile */
+  html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  /* Hide scrollbar for Chrome, Safari, and Opera on mobile */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 }
