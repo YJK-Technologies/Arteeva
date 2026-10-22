@@ -8,14 +8,14 @@
 // Global Configuration
 const CONFIG = {
   companyName: "ARTEEVA",
-  companyEmail: "yjktechnologiesdev@gmail.com",
+  companyEmail: "notification.arteeva.co@gmail.com",
   phone: "+91 7305443860",
   address: "ARTEEVA Towers, Plot 42, Prime Industrial & Commercial Zone",
   location: "Kanyakumari District, Tamil Nadu, India",
   workingHours: "Monday - Saturday: 8:30 AM - 6:30 PM",
   // Google Apps Script Web App Endpoint:
   // Follow instructions in README.md to deploy your script and paste the URL below
-  appsScriptUrl: "https://script.google.com/macros/s/AKfycbxaKbkzV6hm1nwb4jknYxU53UzBQnNY6AfPEZt705EUU0YyhdTxprzv29L7D95c-vCl/exec" 
+  appsScriptUrl: "https://script.google.com/macros/s/AKfycbxXyESS0e-KRAmtOXEiqhRE-rxBZmkGSjZEN1o_E8Xr566AM7TjQCe5H8GjhRC97sHk2A/exec" 
 };
 
 document.addEventListener('DOMContentLoaded', () => {
