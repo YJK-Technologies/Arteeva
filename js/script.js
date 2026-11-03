@@ -15,7 +15,7 @@ const CONFIG = {
   workingHours: "Monday - Saturday: 8:30 AM - 6:30 PM",
   // Google Apps Script Web App Endpoint:
   // Follow instructions in README.md to deploy your script and paste the URL below
-  appsScriptUrl: "https://script.google.com/macros/s/AKfycbxXyESS0e-KRAmtOXEiqhRE-rxBZmkGSjZEN1o_E8Xr566AM7TjQCe5H8GjhRC97sHk2A/exec" 
+  appsScriptUrl: "https://script.google.com/macros/s/AKfycbxXyESS0e-KRAmtOXEiqhRE-rxBZmkGSjZEN1o_E8Xr566AM7TjQCe5H8GjhRC97sHk2A/exec"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -49,7 +49,7 @@ function initNavbarBehavior() {
   // Auto-close mobile navbar on link click
   const navLinks = document.querySelectorAll('.navbar-nav .nav-link, .nav-cta-btn');
   const navbarCollapse = document.querySelector('.navbar-collapse');
-  
+
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       if (navbarCollapse && navbarCollapse.classList.contains('show')) {
@@ -70,7 +70,7 @@ function initNavbarBehavior() {
 function initActiveNavLink() {
   const currentPath = window.location.pathname.toLowerCase();
   const navLinks = document.querySelectorAll('.navbar-custom .nav-link');
-  
+
   // Clean path to extract filename (e.g., 'about.html')
   let pageName = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
   if (pageName === '' || pageName === '/') pageName = 'index.html';
@@ -78,7 +78,7 @@ function initActiveNavLink() {
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (!href) return;
-    
+
     const targetFile = href.substring(href.lastIndexOf('/') + 1) || 'index.html';
 
     if (pageName === targetFile || (pageName === 'index.html' && (targetFile === 'index.html' || targetFile === './' || targetFile === ''))) {
@@ -180,8 +180,23 @@ function initContactForm() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const phoneRegex = /^[\d\s+\-()]{8,20}$/;
 
+  // Dynamic dependent service options mapping (3 options per division)
+  const SERVICE_OPTIONS = {
+    'Consulting': [
+      'Planning & Scheduling',
+      'Cost Management & Control',
+      'Project Controls & Delay Analysis'
+    ],
+    'Construction': [
+      'Residential & Commercial Buildings',
+      'Industrial & Warehouse Works',
+      'Civil Works, Renovation & Fit-Out'
+    ]
+  };
+
   const validateField = (input, condition, feedbackId) => {
     const feedbackEl = document.getElementById(feedbackId);
+    if (!input) return false;
     if (!condition) {
       input.classList.add('is-invalid');
       input.classList.remove('is-valid');
@@ -195,15 +210,50 @@ function initContactForm() {
     }
   };
 
-  // Live input validation listeners
+  // Form input elements
   const nameInput = document.getElementById('fullName');
   const emailInput = document.getElementById('emailAddress');
   const phoneInput = document.getElementById('phoneNumber');
-  const projectTypeInput = document.getElementById('projectType');
-  const locationInput = document.getElementById('projectLocation');
-  const serviceInput = document.getElementById('serviceRequired');
+  const serviceSelect = document.getElementById('serviceSelect');
+  const serviceTypeSelect = document.getElementById('serviceTypeSelect');
   const messageInput = document.getElementById('projectMessage');
 
+  // Helper to dynamically populate serviceType dropdown based on service selection
+  const updateServiceTypeDropdown = (selectedService) => {
+    if (!serviceTypeSelect) return;
+    serviceTypeSelect.innerHTML = '';
+
+    if (!selectedService || !SERVICE_OPTIONS[selectedService]) {
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = '-- Select Service first --';
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      serviceTypeSelect.appendChild(defaultOption);
+      serviceTypeSelect.disabled = true;
+      serviceTypeSelect.classList.remove('is-valid', 'is-invalid');
+      return;
+    }
+
+    serviceTypeSelect.disabled = false;
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = '';
+    placeholderOption.textContent = `Select ${selectedService} Type`;
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    serviceTypeSelect.appendChild(placeholderOption);
+
+    SERVICE_OPTIONS[selectedService].forEach(optText => {
+      const option = document.createElement('option');
+      option.value = optText;
+      option.textContent = optText;
+      serviceTypeSelect.appendChild(option);
+    });
+
+    serviceTypeSelect.classList.remove('is-valid', 'is-invalid');
+  };
+
+  // Live input validation listeners
   if (nameInput) {
     nameInput.addEventListener('input', () => {
       validateField(nameInput, nameInput.value.trim().length >= 2, 'nameFeedback');
@@ -219,19 +269,15 @@ function initContactForm() {
       validateField(phoneInput, phoneRegex.test(phoneInput.value.trim()), 'phoneFeedback');
     });
   }
-  if (projectTypeInput) {
-    projectTypeInput.addEventListener('input', () => {
-      validateField(projectTypeInput, projectTypeInput.value.trim().length >= 2, 'projectTypeFeedback');
+  if (serviceSelect) {
+    serviceSelect.addEventListener('change', () => {
+      validateField(serviceSelect, serviceSelect.value.trim() !== '', 'serviceFeedback');
+      updateServiceTypeDropdown(serviceSelect.value);
     });
   }
-  if (locationInput) {
-    locationInput.addEventListener('input', () => {
-      validateField(locationInput, locationInput.value.trim().length >= 2, 'locationFeedback');
-    });
-  }
-  if (serviceInput) {
-    serviceInput.addEventListener('change', () => {
-      validateField(serviceInput, serviceInput.value.trim() !== '', 'serviceFeedback');
+  if (serviceTypeSelect) {
+    serviceTypeSelect.addEventListener('change', () => {
+      validateField(serviceTypeSelect, serviceTypeSelect.value.trim() !== '', 'serviceTypeFeedback');
     });
   }
   if (messageInput) {
@@ -251,12 +297,11 @@ function initContactForm() {
     const isNameValid = validateField(nameInput, nameInput.value.trim().length >= 2, 'nameFeedback');
     const isEmailValid = validateField(emailInput, emailRegex.test(emailInput.value.trim()), 'emailFeedback');
     const isPhoneValid = validateField(phoneInput, phoneRegex.test(phoneInput.value.trim()), 'phoneFeedback');
-    const isProjectTypeValid = validateField(projectTypeInput, projectTypeInput.value.trim().length >= 2, 'projectTypeFeedback');
-    const isLocationValid = validateField(locationInput, locationInput.value.trim().length >= 2, 'locationFeedback');
-    const isServiceValid = validateField(serviceInput, serviceInput.value.trim() !== '', 'serviceFeedback');
+    const isServiceValid = validateField(serviceSelect, serviceSelect && serviceSelect.value.trim() !== '', 'serviceFeedback');
+    const isServiceTypeValid = validateField(serviceTypeSelect, serviceTypeSelect && !serviceTypeSelect.disabled && serviceTypeSelect.value.trim() !== '', 'serviceTypeFeedback');
     const isMessageValid = validateField(messageInput, messageInput.value.trim().length >= 10, 'messageFeedback');
 
-    if (!isNameValid || !isEmailValid || !isPhoneValid || !isProjectTypeValid || !isLocationValid || !isServiceValid || !isMessageValid) {
+    if (!isNameValid || !isEmailValid || !isPhoneValid || !isServiceValid || !isServiceTypeValid || !isMessageValid) {
       if (errorAlert) {
         errorMessageText.textContent = "Please correct all highlighted fields before submitting.";
         errorAlert.classList.remove('d-none');
@@ -271,9 +316,8 @@ function initContactForm() {
       company: companyInput ? companyInput.value.trim() : '',
       email: emailInput.value.trim(),
       phone: phoneInput.value.trim(),
-      projectType: projectTypeInput.value.trim(),
-      location: locationInput.value.trim(),
-      serviceRequired: serviceInput.value.trim(),
+      service: serviceSelect.value.trim(),
+      serviceType: serviceTypeSelect.value.trim(),
       message: messageInput.value.trim(),
       timestamp: new Date().toISOString()
     };
@@ -284,8 +328,8 @@ function initContactForm() {
     if (btnSpinner) btnSpinner.classList.remove('d-none');
 
     try {
-      const endpoint = CONFIG.appsScriptUrl && CONFIG.appsScriptUrl.trim() !== "" 
-        ? CONFIG.appsScriptUrl.trim() 
+      const endpoint = CONFIG.appsScriptUrl && CONFIG.appsScriptUrl.trim() !== ""
+        ? CONFIG.appsScriptUrl.trim()
         : null;
 
       if (endpoint) {
@@ -331,6 +375,7 @@ function initContactForm() {
         successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
       form.reset();
+      updateServiceTypeDropdown('');
       // Clear valid class styles
       form.querySelectorAll('.is-valid').forEach(el => el.classList.remove('is-valid'));
     }
