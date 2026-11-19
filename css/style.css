@@ -1457,9 +1457,13 @@ img {
   outline: none;
 }
 
-.form-control.is-invalid,
+/* .form-control.is-invalid,
 .form-select.is-invalid {
   border-color: #dc2626;
+} */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #dc2626 !important;
 }
 
 .invalid-feedback {
