@@ -294,12 +294,12 @@ function initContactForm() {
     if (errorAlert) errorAlert.classList.add('d-none');
 
     // Run complete validation
-    const isNameValid = validateField(nameInput, nameInput.value.trim().length >= 2, 'nameFeedback');
-    const isEmailValid = validateField(emailInput, emailRegex.test(emailInput.value.trim()), 'emailFeedback');
-    const isPhoneValid = validateField(phoneInput, phoneRegex.test(phoneInput.value.trim()), 'phoneFeedback');
+    const isNameValid = validateField(nameInput, nameInput && nameInput.value.trim().length >= 2, 'nameFeedback');
+    const isEmailValid = validateField(emailInput, emailInput && emailRegex.test(emailInput.value.trim()), 'emailFeedback');
+    const isPhoneValid = validateField(phoneInput, phoneInput && phoneRegex.test(phoneInput.value.trim()), 'phoneFeedback');
     const isServiceValid = validateField(serviceSelect, serviceSelect && serviceSelect.value.trim() !== '', 'serviceFeedback');
     const isServiceTypeValid = validateField(serviceTypeSelect, serviceTypeSelect && !serviceTypeSelect.disabled && serviceTypeSelect.value.trim() !== '', 'serviceTypeFeedback');
-    const isMessageValid = validateField(messageInput, messageInput.value.trim().length >= 10, 'messageFeedback');
+    const isMessageValid = validateField(messageInput, messageInput && messageInput.value.trim().length >= 10, 'messageFeedback');
 
     if (!isNameValid || !isEmailValid || !isPhoneValid || !isServiceValid || !isServiceTypeValid || !isMessageValid) {
       if (errorAlert) {
